@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>任务三：三栏式布局</title>
+    <style type="text/css">
+        body{
+            padding: 20px;
+        }
+        div{
+            padding: 20px;
+            border: 1px solid #999;
+            background-color:white;
+            box-sizing: border-box;
+        }
+        #div1 img, #div3 img {
+            width: 80px;
+            height: 80px;
+        }
+        #div3 img {
+            display: block;
+            padding: 10px;
+        }
+        @media screen and (min-width:380px) {
+            #div {
+                background-color: #eee;
+                display: flex;
+                width: 100%;
+            }
+        }
+        @media screen and (max-width:379px) {
+            #div {
+                background-color: #eee;
+                width: 100%;
+            }
+        }
+        #div1 {
+            display: flex;
+            width: 200px;
+            height: 120px;
+        }
+        #div2 {
+            width: 100%;
+            margin-right: 20px;
+            margin-left: 20px;
+        }
+        #div3 {
+            width: 120px;
+            height: 420px;
+        }
+        #div1 span{
+            font:1px/20px  "Microsoft Yahei";
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="div">
+    <div id="div1">
+        <img src="001.jpg">
+        <span>koreyoshi</span>
+    </div>
+    <div id="div2">
+        <p>我问佛：为何不给所有女子羞花闭月的容颜？</p>
+        <p>佛曰：那只是昙花的一现，用来蒙蔽世俗的眼</p>
+        <p>没有什么美可以抵过一颗纯净仁爱的心</p>
+        <p>我把它赐给每一个女子</p>
+        <p>可有人让它蒙上了灰</p>
+
+        <p>我问佛：世间为何有那么多遗憾？</p>
+        <p>佛曰：这是一个婆娑世界，婆娑即遗憾</p>
+        <p>没有遗憾，给你再多幸福也不会体会快乐 </p>
+    </div>
+    <div id="div3">
+        <img src="002.jpg">
+        <img src="002.jpg">
+        <img src="002.jpg">
+        <img src="002.jpg">
+    </div>
+</div>
+</body>
+</html>
