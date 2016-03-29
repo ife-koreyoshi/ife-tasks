@@ -4,62 +4,66 @@
     <meta charset="UTF-8">
     <title>任务三：三栏式布局</title>
     <style type="text/css">
+        *{margin: 0;padding: 0;}
         body{
             padding: 20px;
+            min-width: 500px;
         }
         #left img, #right img {
             width: 80px;
             height: 80px;
-            border: 1px solid #999;
+        }
+        #right img{
+            display:block;
         }
         div{
-            padding: 20px;
             background-color: #eee;
+            border:1px solid #999;
         }
-        #content{
-            padding-left: 240px;
-            padding-right: 160px;
-        }
-        #content div{
-            background-color: white;
+        #center, #left, #right{
             float:left;
-            position:relative
+            position:relative;
+            background-color: white;
+            margin-top: 20px;
         }
-        #center{
-            width:100%;
-
+        #container{
+            padding-left:240px;
+            padding-right:160px;
+            overflow: hidden
         }
         #left{
-            width:200px;
-            margin-left:-100%;
+            margin-left: -100%;
+            left: -220px;
+            width: 200px;
+            height: 120px;
         }
         #right{
-            width:120px;
+            margin-right: -100%;
+            right: -20px;
+            width: 120px;
+            margin-bottom: 20px;
         }
-
-        /*@media screen and (min-width:380px) {*/
-            /*#div {*/
-                /*background-color: #eee;*/
-                /*width: 100%;*/
-            /*}*/
-        /*}*/
-        /*@media screen and (max-width:379px) {*/
-            /*#div {*/
-                /*background-color: #eee;*/
-                /*width: 100%;*/
-            /*}*/
-        /*}*/
+        #center{
+            width: 100%;
+        }
+        #left img, #center p, #right img{
+            margin: 20px;
+        }
+        #left span{
+            float: right;
+            margin-top: 20px;
+            margin-right: 8px;
+        }
     </style>
 </head>
 <body>
-<div id="content">
+<div id="container">
     <div id="center">
         <p>我问佛：为何不给所有女子羞花闭月的容颜？</p>
         <p>佛曰：那只是昙花的一现，用来蒙蔽世俗的眼</p>
         <p>没有什么美可以抵过一颗纯净仁爱的心</p>
         <p>我把它赐给每一个女子</p>
         <p>可有人让它蒙上了灰</p>
-
         <p>我问佛：世间为何有那么多遗憾？</p>
         <p>佛曰：这是一个婆娑世界，婆娑即遗憾</p>
         <p>没有遗憾，给你再多幸福也不会体会快乐 </p>
