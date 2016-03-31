@@ -13,7 +13,8 @@ var aqiData = {};
  * 然后渲染aqi-list列表，增加新增的数据
  */
 function addAqiData() {
-
+    var cityInfo = document.getElementById("aqi-city-input").innerText;
+    var valueInfo = document.getElementById("aqi-value-input").innerText;
 }
 
 /**

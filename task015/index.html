@@ -40,7 +40,7 @@
         for(var i = 0; i < liList.length; i++) {
             var text = liList[i].textContent;
             var info = text.split(/：/);
-            data.push([info[0], +info[1]]);
+            data.push([info[0], info[1]]);
         }
         return data;
     }
