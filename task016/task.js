@@ -1,32 +1,53 @@
 /**
- * aqiData£¬´æ´¢ÓÃ»§ÊäÈëµÄ¿ÕÆøÖ¸ÊıÊı¾İ
- * Ê¾Àı¸ñÊ½£º
+ * aqiDataï¼Œå­˜å‚¨ç”¨æˆ·è¾“å…¥çš„ç©ºæ°”æŒ‡æ•°æ•°æ®
+ * ç¤ºä¾‹æ ¼å¼ï¼š
  * aqiData = {
- *    "±±¾©": 90,
- *    "ÉÏº£": 40
+ *    "åŒ—äº¬": 90,
+ *    "ä¸Šæµ·": 40
  * };
  */
 var aqiData = {};
 
 /**
- * ´ÓÓÃ»§ÊäÈëÖĞ»ñÈ¡Êı¾İ£¬ÏòaqiDataÖĞÔö¼ÓÒ»ÌõÊı¾İ
- * È»ºóäÖÈ¾aqi-listÁĞ±í£¬Ôö¼ÓĞÂÔöµÄÊı¾İ
+ * ä»ç”¨æˆ·è¾“å…¥ä¸­è·å–æ•°æ®ï¼Œå‘aqiDataä¸­å¢åŠ ä¸€æ¡æ•°æ®
+ * ç„¶åæ¸²æŸ“aqi-liståˆ—è¡¨ï¼Œå¢åŠ æ–°å¢çš„æ•°æ®
  */
 function addAqiData() {
-    var cityInfo = document.getElementById("aqi-city-input").innerText;
-    var valueInfo = document.getElementById("aqi-value-input").innerText;
+    var cityInfo = document.getElementById("aqi-city-input").value.trim();
+    var valueInfo = document.getElementById("aqi-value-input").value.trim();
+    if(cityInfo.length !=0 && valueInfo.length != 0){
+        var matchRes1 = cityInfo.match(/^[\u0391-\uFFE5a-zA-Z]+$/);
+        if(matchRes1 == null){
+            alert("è¾“å…¥çš„åŸå¸‚æ ¼å¼ä¸å¯¹ï¼Œå¿…é¡»ä¸ºä¸­è‹±æ–‡å­—ç¬¦ï¼");
+            return null;
+        }
+        var matchRes2 = valueInfo.match(/^[-+]?\d*$/);
+        if(matchRes2 == null){
+            alert("è¾“å…¥çš„ç©ºæ°”è´¨é‡æŒ‡æ•°æ ¼å¼ä¸å¯¹ï¼Œå¿…é¡»ä¸ºæ•´å½¢ï¼");
+            return null;
+        }
+    }else{
+        alert("åŸå¸‚æˆ–ç©ºæ°”è´¨é‡æŒ‡æ•°ä¸å¯ä¸ºç©ºï¼");
+        return null;
+    }
+    aqiData[cityInfo] = valueInfo;
 }
 
 /**
- * äÖÈ¾aqi-table±í¸ñ
+ * æ¸²æŸ“aqi-tableè¡¨æ ¼
  */
 function renderAqiList() {
-
+    var tableInfo = "<tr><td>åŸå¸‚</td><td>ç©ºæ°”è´¨é‡</td><td>æ“ä½œ</td></tr>";
+    for(var city in aqiData){
+        tableInfo += "<tr><td>"+city+"</td><td>"+aqiData[city]+"</td><td><button id='"+city+"'>åˆ é™¤</button></td></tr>";
+    }
+    document.getElementById("aqi-table").innerHTML = city ? tableInfo : "";
+    addListener();
 }
 
 /**
- * µã»÷add-btnÊ±µÄ´¦ÀíÂß¼­
- * »ñÈ¡ÓÃ»§ÊäÈë£¬¸üĞÂÊı¾İ£¬²¢½øĞĞÒ³Ãæ³ÊÏÖµÄ¸üĞÂ
+ * ç‚¹å‡»add-btnæ—¶çš„å¤„ç†é€»è¾‘
+ * è·å–ç”¨æˆ·è¾“å…¥ï¼Œæ›´æ–°æ•°æ®ï¼Œå¹¶è¿›è¡Œé¡µé¢å‘ˆç°çš„æ›´æ–°
  */
 function addBtnHandle() {
     addAqiData();
@@ -34,21 +55,29 @@ function addBtnHandle() {
 }
 
 /**
- * µã»÷¸÷¸öÉ¾³ı°´Å¥µÄÊ±ºòµÄ´¦ÀíÂß¼­
- * »ñÈ¡ÄÄ¸ö³ÇÊĞÊı¾İ±»É¾£¬É¾³ıÊı¾İ£¬¸üĞÂ±í¸ñÏÔÊ¾
+ * ç‚¹å‡»å„ä¸ªåˆ é™¤æŒ‰é’®çš„æ—¶å€™çš„å¤„ç†é€»è¾‘
+ * è·å–å“ªä¸ªåŸå¸‚æ•°æ®è¢«åˆ ï¼Œåˆ é™¤æ•°æ®ï¼Œæ›´æ–°è¡¨æ ¼æ˜¾ç¤º
  */
-function delBtnHandle() {
+function delBtnHandle(city) {
     // do sth.
-
+    document.getElementById(city).removeEventListener("click", null)
+    delete aqiData[city];
     renderAqiList();
 }
 
+function addListener() {
+    var buttonInfo = document.getElementById("aqi-table").getElementsByTagName("button");
+    for (var i = 0; i < buttonInfo.length; i++) {
+        buttonInfo[i].addEventListener("click", function(){
+            delBtnHandle(this.id);
+        });
+    }
+}
+
 function init() {
-
-    // ÔÚÕâÏÂÃæ¸øadd-btn°ó¶¨Ò»¸öµã»÷ÊÂ¼ş£¬µã»÷Ê±´¥·¢addBtnHandleº¯Êı
-
-    // Ïë°ì·¨¸øaqi-tableÖĞµÄËùÓĞÉ¾³ı°´Å¥°ó¶¨ÊÂ¼ş£¬´¥·¢delBtnHandleº¯Êı
-
+    // åœ¨è¿™ä¸‹é¢ç»™add-btnç»‘å®šä¸€ä¸ªç‚¹å‡»äº‹ä»¶ï¼Œç‚¹å‡»æ—¶è§¦å‘addBtnHandleå‡½æ•°
+    document.getElementById("add-btn").addEventListener("click", addBtnHandle);
+    // æƒ³åŠæ³•ç»™aqi-tableä¸­çš„æ‰€æœ‰åˆ é™¤æŒ‰é’®ç»‘å®šäº‹ä»¶ï¼Œè§¦å‘delBtnHandleå‡½æ•°
 }
 
 init();
